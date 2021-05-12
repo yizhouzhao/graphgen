@@ -17,7 +17,7 @@ from datasets.preprocess import (
 )
 
 #new
-from new.process_scene_graph_dataset import process_scene_graph_net
+from new.process_scene_graph_dataset import process_scene_graph_net, process_3dssg_dataset
 
 def check_graph_size(
     graph, min_num_nodes=None, max_num_nodes=None,
@@ -351,6 +351,11 @@ def create_graphs(args):
         input_path = "?????"
         min_num_nodes, max_num_nodes = None, None
         min_num_edges, max_num_edges = None, None
+    elif '3DSSG' in args.graph_type:
+        base_path = os.path.join(args.dataset_path, '3DSSG/')
+        input_path = "?????"
+        min_num_nodes, max_num_nodes = None, None
+        min_num_edges, max_num_edges = None, None
 
     else:
         print('Dataset - {} is not valid'.format(args.graph_type))
@@ -392,6 +397,9 @@ def create_graphs(args):
         # new
         elif args.graph_type in ['SceneGraphNet']:
             count = process_scene_graph_net(input_path, args.current_dataset_path)
+
+        elif args.graph_type in ['3DSSG']:
+            count = process_3dssg_dataset(input_path, args.current_dataset_path)
 
         print('Graphs produced', count)
     else:

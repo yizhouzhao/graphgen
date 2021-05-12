@@ -26,7 +26,7 @@ class Args:
 
         # Check datasets/process_dataset for datasets
         # Select dataset to train the model
-        self.graph_type = 'Lung'
+        self.graph_type = '3DSSG'
         self.num_graphs = None  # Set it None to take complete dataset
 
         # Whether to produce networkx format graphs for real datasets

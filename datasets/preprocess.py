@@ -200,12 +200,14 @@ def min_dfscodes_to_tensors(min_dfscodes_path, min_dfscode_tensors_path, feature
         if filename.endswith(".dat"):
             min_dfscodes.append(filename)
 
-    with Pool(processes=MAX_WORKERS) as pool:
-        for i, _ in tqdm(enumerate(pool.imap_unordered(
-                partial(dfscode_from_file_to_tensor_to_file, min_dfscodes_path=min_dfscodes_path,
-                        min_dfscode_tensors_path=min_dfscode_tensors_path, feature_map=feature_map),
-                min_dfscodes, chunksize=16), 1)):
-            pass
+    for file in tqdm(min_dfscodes):
+        dfscode_from_file_to_tensor_to_file(file, min_dfscodes_path, min_dfscode_tensors_path, feature_map)
+    # with Pool(processes=MAX_WORKERS) as pool:
+    #     for i, _ in tqdm(enumerate(pool.imap_unordered(
+    #             partial(dfscode_from_file_to_tensor_to_file, min_dfscodes_path=min_dfscodes_path,
+    #                     min_dfscode_tensors_path=min_dfscode_tensors_path, feature_map=feature_map),
+    #             min_dfscodes, chunksize=16), 1)):
+    #         pass
 
             # if i % 10000 == 0:
             #     print('Processed', i, 'graphs')
