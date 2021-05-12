@@ -13,6 +13,8 @@ from graphgen.data import Graph_DFS_code_from_file
 from model import create_model
 from train import train
 
+#new
+from new.process_scene_graph_dataset import process_scene_graph_net
 
 if __name__ == '__main__':
     args = Args()

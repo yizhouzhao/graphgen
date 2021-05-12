@@ -16,6 +16,8 @@ from datasets.preprocess import (
     min_dfscodes_to_tensors, random_walk_with_restart_sampling
 )
 
+#new
+from new.process_scene_graph_dataset import process_scene_graph_net
 
 def check_graph_size(
     graph, min_num_nodes=None, max_num_nodes=None,
@@ -343,6 +345,13 @@ def create_graphs(args):
         min_num_nodes, max_num_nodes = None, None
         min_num_edges, max_num_edges = 20, None
 
+    # new dataset: scenegraphnet
+    elif 'SceneGraphNet' in args.graph_type:
+        base_path = os.path.join(args.dataset_path, 'SceneGraphNet/')
+        input_path = "?????"
+        min_num_nodes, max_num_nodes = None, None
+        min_num_edges, max_num_edges = None, None
+
     else:
         print('Dataset - {} is not valid'.format(args.graph_type))
         exit()
@@ -379,6 +388,10 @@ def create_graphs(args):
                 num_factor=num_factor, min_num_nodes=min_num_nodes,
                 max_num_nodes=max_num_nodes, min_num_edges=min_num_edges,
                 max_num_edges=max_num_edges)
+
+        # new
+        elif args.graph_type in ['SceneGraphNet']:
+            count = process_scene_graph_net(input_path, args.current_dataset_path)
 
         print('Graphs produced', count)
     else:
